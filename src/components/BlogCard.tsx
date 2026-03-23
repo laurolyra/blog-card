@@ -1,4 +1,18 @@
+import { cva } from "class-variance-authority";
 import CardTag from "./CardTag";
+
+const readMoreButton = cva(
+  "inline-flex items-center gap-1 text-base border border-transparent rounded-lg px-0.5 py-0.5 focus:outline-none focus:ring-2 transition-colors",
+  {
+    variants: {
+      intent: {
+        primary: "text-[#4338CA] hover:text-[#3730A3] focus:ring-[#4338CA]/20 cursor-pointer",
+        disabled: "opacity-50 cursor-not-allowed text-[#A3A3A3]",
+      },
+    },
+    defaultVariants: { intent: "primary" },
+  }
+);
 
 interface BlogCardProps {
   imageAlt: string;
@@ -37,14 +51,7 @@ export default function BlogCard({
               <button
                 onClick={handleButtonClick}
                 disabled={!url}
-                className="inline-flex items-center gap-1
-                text-[#4338CA] hover:text-[#3730A3]
-                text-base border
-                border-transparent rounded-lg
-                cursor-pointer
-                px-0.5 py-0.5 focus:outline-none focus:ring-2 focus:ring-[#4338CA]/20 transition-colors
-                disabled:opacity-50 disabled:cursor-not-allowed
-                disabled:text-[#A3A3A3]"
+                className={readMoreButton({ intent: url ? "primary" : "disabled" })}
               >
                 Read more <span>→</span>
               </button>
