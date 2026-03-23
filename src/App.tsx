@@ -17,7 +17,7 @@ function App() {
         />
       </div>
       <div className="fixed bottom-6 left-6">
-        <Credits author="Lauro Lyra Aguiar" />
+        <Credits author="Lauro Lyra Aguiar" username="laurolyra" />
       </div>
     </div>
   );
