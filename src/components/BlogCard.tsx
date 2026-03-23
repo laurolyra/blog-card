@@ -1,25 +1,28 @@
+import CardTag from './CardTag';
+
 interface BlogCardProps {
   imageAlt: string;
   imageSrc: string;
+  title: string;
+  subtitle: string;
+  tag: string;
+  url: string;
 }
 
-export default function BlogCard({ imageAlt, imageSrc }: BlogCardProps) {
+export default function BlogCard({ imageAlt, imageSrc, title, subtitle, tag, url }: BlogCardProps) {
   return (
     <div className="w-85 h-126 rounded-lg">
       <img alt={imageAlt} src={imageSrc} className="rounded-t-lg w-85 h-72" />
       <div className="px-4 py-6 bg-white rounded-b-lg shadow-md gap-2">
-        <div className="py-0.5 px-2 bg-[#F0FDF4] border border-[#BBF7D0] rounded-2xl w-fit">
-          <p className="text-[#15803D] text-sm">Interior</p>
-        </div>
+        <CardTag tag={tag} bgColor="bg-[#F0FDF4]" borderColor="border-[#BBF7D0]" textColor="text-[#15803D]" />
         <div className="flex flex-col justify-between gap-3">
-          <h1 className="font-bold text-lg">Top 5 Living Room Inspirations</h1>
+          <h1 className="font-bold text-lg">{title}</h1>
           <div className="flex flex-col justify-between h-24">
             <h2 className="text-[#525252] text-base">
-              Curated vibrants colors for your living, make it pop & calm in the
-              same time.
+              {subtitle}
             </h2>
             <div>
-                <p className="text-[#4338CA] text-base">Read more <span>→</span></p>
+                <a className="text-[#4338CA] text-base" href={url} target="_blank" rel="noopener noreferrer">Read more <span>→</span></a>
             </div>
           </div>
         </div>
