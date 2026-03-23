@@ -15,6 +15,7 @@ function App() {
           subtitle={ellipsis("Curated vibrants colors for your living, make it pop & calm in the same time.")}
           tag="Interior"
           url="http://github.com/laurolyra"
+          handleButtonClick={() => window.alert("thanks for the click!")}
         />
       </div>
       <div className="fixed bottom-6 left-6">
