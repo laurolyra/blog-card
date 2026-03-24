@@ -9,11 +9,12 @@ function App() {
     <div className="min-h-screen bg-linear-to-br from-[#F9FAFB] to-[#D2D6DB]">
       <div className="flex justify-center items-center min-h-screen">
         <BlogCard
-          imageAlt="living room"
-          imageSrc={spaceJoy}
+          image={{ src: spaceJoy, alt: "living room" }}
           title={ellipsis("Top 5 Living Room Inspirations", 30)}
           subtitle={ellipsis("Curated vibrants colors for your living, make it pop & calm in the same time.")}
-          tag="Interior"
+          tags={[
+            { tag: "Interior", bgColor: "bg-[#F0FDF4]", borderColor: "border-[#BBF7D0]", textColor: "text-[#15803D]" },
+          ]}
           url="http://github.com/laurolyra"
           handleButtonClick={() => window.alert("thanks for the click!")}
         />
