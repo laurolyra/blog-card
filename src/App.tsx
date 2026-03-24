@@ -19,8 +19,8 @@ function App() {
           handleButtonClick={() => window.alert("thanks for the click!")}
         />
       </div>
-      <div className="fixed bottom-6 left-6">
-        <Credits author="Lauro Lyra Aguiar" username="laurolyra" />
+      <div className="fixed bottom-6 left-6 right-6">
+        <Credits author="Lauro Lyra Aguiar" username="laurolyra" repoPath="laurolyra/blog-card" />
       </div>
     </div>
   );
