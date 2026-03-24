@@ -1,75 +1,59 @@
-# React + TypeScript + Vite
+# Blog Card
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A customizable Blog Card UI component built as a [GreatFrontEnd Projects](https://www.greatfrontend.com/projects) challenge.
 
-Currently, two official plugins are available:
+## What I built
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A reusable `BlogCard` React component that displays a blog post preview with a cover image, dynamic category tags, title, subtitle, and a "Read more" button. The component is fully prop-driven, meaning all content and styling can be controlled from the outside.
 
-## React Compiler
+The implementation went through an iterative process: starting from a hardcoded version, then progressively making the card customizable, extracting sub-components (`CardTag`), and finally adding proper behavior like ellipsis truncation and button state variants.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Tech stack
 
-Note: This will impact Vite dev & build performances.
+- **React** + **TypeScript** — component structure and type-safe props
+- **Vite** — dev server and bundler
+- **Tailwind CSS** — utility-first styling
+- **class-variance-authority (CVA)** — managing button style variants
 
-## Expanding the ESLint configuration
+## Component structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── BlogCard.tsx     # Main card component
+│   ├── CardTag.tsx      # Individual tag pill
+│   └── Credits.tsx      # Attribution footer
+├── services/
+│   └── ellipsis.ts      # Text truncation utility
+└── App.tsx              # Usage example
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Key decisions & trade-offs
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### CVA for button variants
+The "Read more" button has two states: `primary` (active, with a URL) and `disabled` (no URL provided). Instead of scattering conditional class strings inline, I used CVA to declare the variants declaratively. This keeps the intent clear and makes it easy to add new variants later.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Ellipsis as a service
+Text truncation (`title` and `subtitle`) is handled by a small utility function in `services/ellipsis.ts` rather than pure CSS `text-overflow`. This gives full control over the character limit and avoids relying on fixed container heights for the truncation to kick in. The trade-off is that the limit is set at call time (in `App.tsx`), so it's not automatic — but it keeps the component itself simpler and free of layout assumptions.
+
+### CardTag fully driven by Tailwind class strings
+The `CardTag` component receives `bgColor`, `borderColor`, and `textColor` as raw Tailwind class strings (e.g. `"bg-[#F0FDF4]"`). This keeps the component generic and lets the consumer define any color without needing to extend a theme or add new variants. The downside is that it bypasses Tailwind's static class detection, so arbitrary values must be passed explicitly — but for a component-level challenge this is an acceptable trade-off.
+
+### No CSS ellipsis
+Using a JavaScript utility for truncation instead of `overflow: hidden; text-overflow: ellipsis` means the truncation works regardless of container width changes and produces consistent output. It also appends `...` only when the text actually exceeds the limit, preserving a trailing `.` if the text already ends with a period.
+
+## Possible next steps
+
+- **Storybook integration** — document `BlogCard` and `CardTag` in isolation, making it easier to visualize all prop combinations and states (primary button, disabled button, multiple tags, long vs short text)
+- **Responsive layout** — the card currently has fixed dimensions (`w-85`, `h-126`). Adding breakpoint-aware sizing would make it usable in real grid layouts
+- **Skeleton loading state** — a shimmer placeholder while image/data loads would round out the component for real-world use
+- **CardTag color tokens** — instead of accepting raw Tailwind class strings, define a set of named color presets (`"green" | "blue" | "red"`) mapped internally. This would restore Tailwind's static class detection and prevent invalid classes from slipping through
+- **Unit tests** — cover the `ellipsis` utility edge cases (exactly at limit, ends with period, empty string) and snapshot-test the card variants
+- **Image aspect ratio enforcement** — currently the image is fixed at `h-72`. Using `aspect-video` or `object-cover` with a flexible height would prevent layout shifts with differently-sized images
+
+## Running locally
+
+```bash
+npm install
+npm run dev
 ```
