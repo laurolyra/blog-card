@@ -10,5 +10,5 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
-  base:'/projects/blog-card/'
+  base:'/blog-card/'
 })
