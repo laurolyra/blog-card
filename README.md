@@ -1,6 +1,11 @@
 # Blog Card
 
 A customizable Blog Card UI component built as a [GreatFrontEnd Projects](https://www.greatfrontend.com/projects) challenge.
+<p align="center">
+  <img width="655" height="722" alt="image" src="https://github.com/user-attachments/assets/e4d92342-37a6-4330-bac7-5f12654ebff2" />
+</p>
+
+
 
 ## What I built
 
