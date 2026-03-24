@@ -1,4 +1,4 @@
-# Blog Card
+# Blog Card ([check it live!](https://laurolyra.github.io/blog-card/))
 
 A customizable Blog Card UI component built as a [GreatFrontEnd Projects](https://www.greatfrontend.com/projects) challenge.
 <p align="center">
