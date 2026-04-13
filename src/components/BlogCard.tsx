@@ -42,8 +42,8 @@ export default function BlogCard({
   handleButtonClick,
 }: BlogCardProps) {
   return (
-    <div className="w-85 h-126 rounded-lg">
-      <img alt={alt} src={src} className="rounded-t-lg w-85 h-72" />
+    <div className="max-w-85 rounded-lg">
+      <img alt={alt} src={src} className="rounded-t-lg max-w-full" />
       <div className="px-4 py-6 bg-white rounded-b-lg shadow-md flex flex-col gap-2">
         <div className="flex flex-wrap gap-1">
           {tags.map(({ tag, bgColor, borderColor, textColor }) => (
@@ -58,7 +58,7 @@ export default function BlogCard({
         </div>
         <div className="flex flex-col justify-between gap-3">
           <h1 className="font-bold text-lg">{title}</h1>
-          <div className="flex flex-col justify-between h-24">
+          <div className="flex flex-col justify-between">
             <h2 className="text-[#525252] text-base">{subtitle}</h2>
             <div>
               <button
